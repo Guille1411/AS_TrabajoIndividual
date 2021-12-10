@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+        rethinkdb:
+                image: rethinkdb
+                ports:
+                        - 8080:8080
+                volumes:
+                        - .:/data
+                networks:
+                        rethink_network:
+                                aliases:
+                                        - rethink_host
+
+        apk_cliente:
+                image: apk
+                networks:
+                        rethink_network:
+                                aliases:
+                                        - apk_host
+
+networks:
+        rethink_network:
+                name: rethink_net
+                driver: bridge
+                ipam:
+                        driver: default
+
